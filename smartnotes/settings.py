@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     # MY APPS
     'home',
-    'smartnotes',
+    'notes',
 
     # ALLAUTH APPS
 

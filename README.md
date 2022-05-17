@@ -126,3 +126,6 @@ def home(request):
         text = models.TextField()
         created = models.DateTimeField(auto_now_add=True)
     ```
+
+- Now I have to create migrations:
+`python manage.py makemigrations`
