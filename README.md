@@ -132,3 +132,26 @@ def home(request):
 
 - Once this is done, I will then need to migrate the changes:
 `python3 manage.py migrate`
+
+---
+
+### BRANCH notes002:
+
+- In this branch I setup the Django admin interface to include the Notes model.
+
+> To add the Notes model to the admin interface, I have to add these lines of code to the `admin.py` file in `notes` app
+
+```python
+from django.contrib import admin
+
+from . import models
+# Register your models here. This is where you decide which models can
+# be displayed in the admin interface
+
+class NotesAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(models.Notes, NotesAdmin)
+```
+
+> Now check the admin page in the browser and the notes model will be there and will allow me to add or remove notes.
