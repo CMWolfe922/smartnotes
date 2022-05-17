@@ -69,3 +69,37 @@ def home(request):
     # This is saying whenever it gets a home request return hello world
     return render(request, "Hello, world!", {'today': datetime.today()})
 ```
+
+---
+## BRANCH home003:
+
+- Updated the `views.py`, `home/urls.py`, and added a new template in the `templates` directory. `authorized.html` which contains a view that only allows logged in users to access.
+
+- In order to restrict people from seeing a page if they are not logged in, you must use the `from django.contrib.auth.decorators import login_required` package to then decorate whichever view you want restricted.
+
+    - Example:
+    ```python
+    from django.contrib.auth.decorators import login_required
+
+    # Create authorized views here
+    # this is all I have to do to block access to a page if user isn't logged in.
+    @login_required
+    def authorized(request):
+        return render(request, "home/authorized.html", {})
+    ```
+
+- You can also add a redirect url so the user doesn't get a 404 message:
+
+    - Example:
+    ```python
+    from django.contrib.auth.decorators import login_required
+
+    # Create authorized views here
+    # this is all I have to do to block access to a page if user isn't logged in.
+    # The login_url redirects the user to a page to login
+    @login_required(login_url="/admin")
+    def authorized(request):
+        return render(request, "home/authorized.html", {})
+    ```
+
+> The `login_url` which redirects users should be used to redirect them to a page that will allow them to login. OR maybe give an option to login or register.

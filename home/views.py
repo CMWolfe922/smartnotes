@@ -10,6 +10,7 @@ def home(request):
 
 # Create authorized views here
 # this is all I have to do to block access to a page if user isn't logged in.
+# The login_url redirects the user to a page to login
 @login_required(login_url="/admin")
 def authorized(request):
     return render(request, "home/authorized.html", {})
