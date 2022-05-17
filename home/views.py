@@ -7,3 +7,7 @@ from datetime import datetime
 def home(request):
     # This is saying whenever it gets a home request return hello world
     return render(request, "home/welcome.html", {'today': datetime.today()})
+
+# Create authorized views here
+def authorized(request):
+    return render(request, "home/authorized.html", {})
