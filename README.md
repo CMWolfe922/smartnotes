@@ -129,3 +129,6 @@ def home(request):
 
 - Now I have to create migrations:
 `python manage.py makemigrations`
+
+- Once this is done, I will then need to migrate the changes:
+`python3 manage.py migrate`
