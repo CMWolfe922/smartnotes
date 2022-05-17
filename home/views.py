@@ -9,6 +9,7 @@ def home(request):
     return render(request, "home/welcome.html", {'today': datetime.today()})
 
 # Create authorized views here
-@login_required # this is all I have to do to block access to a page if user isn't logged in.
+# this is all I have to do to block access to a page if user isn't logged in.
+@login_required(login_url="/admin")
 def authorized(request):
     return render(request, "home/authorized.html", {})
