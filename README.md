@@ -5,7 +5,7 @@
 
 ---
 
-### CREATE SECOND APP:
+## CREATE SECOND APP:
 > For the second app, I am going to create a home app
 
 - This will be our apps "home" page/features
@@ -39,7 +39,7 @@ urlpatterns = [
 
 ---
 
-## THE home002 BRANCH:
+### THE home002 BRANCH:
 
 - update the `views.py` file. I need to change the base function instead of `HttpResponse` I will use `render`.
 
@@ -71,7 +71,7 @@ def home(request):
 ```
 
 ---
-## BRANCH home003:
+### BRANCH home003:
 
 - Updated the `views.py`, `home/urls.py`, and added a new template in the `templates` directory. `authorized.html` which contains a view that only allows logged in users to access.
 
@@ -103,3 +103,26 @@ def home(request):
     ```
 
 > The `login_url` which redirects users should be used to redirect them to a page that will allow them to login. OR maybe give an option to login or register.
+
+---
+
+## CREATE A NEW APP NOTES:
+> `django-admin startapp notes`
+
+> This app will be used to practice building models and using the django ORM.
+---
+
+### BRANCH notes001:
+
+- In this branch I created the actual notes app and built the Notes class in models.
+
+    - Example:
+    ```python
+    from django.db import models
+
+    # Create your models here.
+    class Notes(models.Model):
+        title = models.CharField(max_length=200)
+        text = models.TextField()
+        created = models.DateTimeField(auto_now_add=True)
+    ```
