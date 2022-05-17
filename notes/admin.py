@@ -5,6 +5,6 @@ from . import models
 # be displayed in the admin interface
 
 class NotesAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('title', )
 
 admin.site.register(models.Notes, NotesAdmin)

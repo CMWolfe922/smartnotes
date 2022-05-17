@@ -155,3 +155,15 @@ admin.site.register(models.Notes, NotesAdmin)
 ```
 
 > Now check the admin page in the browser and the notes model will be there and will allow me to add or remove notes.
+---
+
+### BRANCH notes003:
+
+- In this branch I will update how the notes show up in the database and in the admin interface. Right now a new note shows up as Notes object(1)
+
+> To change this go to the `notes/admin.py` file and go to the `NotesAdmin` class and update this class to have:
+
+```python
+class NotesAdmin(admin.ModelAdmin):
+    list_display = ('title', )
+```
