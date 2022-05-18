@@ -167,3 +167,59 @@ admin.site.register(models.Notes, NotesAdmin)
 class NotesAdmin(admin.ModelAdmin):
     list_display = ('title', )
 ```
+---
+
+# USING DJANGO'S SHELL:
+
+> We can use Django's shell to practice querying models, creating new models and filtering those querysets.
+
+- Below is examples of how to use the Django shell
+
+```sh
+(djangoenv) blackbox@BlockBox:~/projects/web-projects/django_projects/smartnotes$ python3 manage.py shell
+/home/blackbox/.local/lib/python3.8/site-packages/IPython/core/interactiveshell.py:841: UserWarning: Attempting to work in a virtualenv. If you encounter problems, please install IPython inside the virtualenv.
+  warn(
+Python 3.8.10 (default, Mar 15 2022, 12:22:08)
+Type 'copyright', 'credits' or 'license' for more information
+IPython 8.2.0 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: from notes.models import Notes
+
+In [2]: mynote = Notes.objects.get(pk='1')
+
+In [3]: mynote.title
+Out[3]: 'My First Note'
+
+In [4]: mynote.text
+Out[4]: 'Adding my first note to the Django smartnotes project! I added this note using the admin interface.'
+
+In [5]: Notes.objects.all()
+Out[5]: <QuerySet [<Notes: Notes object (1)>]>
+
+In [6]: new_note_text = "This is a second note created in the django shell"
+
+In [7]: new_note_title = "Second Note: Created in Shell"
+
+In [8]: new_note = Notes.objects.create(title=new_note_title, text=new_note_text)
+
+In [9]: Notes.objects.all()
+Out[9]: <QuerySet [<Notes: Notes object (1)>, <Notes: Notes object (2)>]>
+
+In [10]: Notes.objects.filter(title__startswith="Second")
+Out[10]: <QuerySet [<Notes: Notes object (2)>]>
+
+In [11]: Notes.objects.filter(text__icontains="note")
+Out[11]: <QuerySet [<Notes: Notes object (1)>, <Notes: Notes object (2)>]>
+
+In [12]: Notes.objects.filter(text__icontains="second")
+Out[12]: <QuerySet [<Notes: Notes object (2)>]>
+
+In [13]: Notes.objects.filter(text__icontains="first")
+Out[13]: <QuerySet [<Notes: Notes object (1)>]>
+
+In [14]: Notes.objects.exclude(text__icontains="first")
+Out[14]: <QuerySet [<Notes: Notes object (2)>]>
+
+In [15]: Notes.objects.filter(text__icontains="first").exclude(title__icontains="Second")
+Out[15]: <QuerySet [<Notes: Notes object (1)>]>
+```
