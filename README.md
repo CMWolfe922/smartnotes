@@ -1,3 +1,5 @@
+> Learn Blockchain using `learnweb3.io`
+
 # CREATING A SMART NOTES DJANGO PROJECT:
 ---
 
@@ -286,5 +288,30 @@ urlpatterns = [
 > Now I will create a way to visualize details of the notes. To do this I will have to create a new view inside the notes app. This view will have to receive a second parameter called `pk` for `primary_key`
 
 ```python
+# Create a view that displays note details
+def note_details(request, pk):
+    # get the note using the primary key
+    note = Notes.objects.get(pk=pk)
+    return render(request, 'notes/note_details.html', {'note': note})
+```
 
+> Then I will have to register the url in the `notes/urls.py` file:
+
+```python
+urlpatterns =[
+    path('notes', views.list_notes),
+    # NEW PATH ADDED
+    path('notes/<int:pk>', views.note_details),
+]
+```
+
+> And finally, comes the html file that I will need to display the note details which will be `smart/notes/1` the name of the html file will be `note_details.html`
+
+```html
+<html>
+<h1>Details for <b>{{note.title}}</b>: </h1>
+
+<p>{{note.text}}</p>
+
+</html>
 ```
