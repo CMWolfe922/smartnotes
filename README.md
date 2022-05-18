@@ -266,3 +266,19 @@ urlpatterns = [
     path('smart/', include('notes.urls')),
 ]
 ```
+> Now that the backend logic is setup, I need to build the template html file to render the notes. This is a very simple template:
+
+```html
+<html>
+<h1>These are all the notes: </h1>
+
+<ul>
+    {% for note in notes %}
+    <li>{{note.title}}</li>
+    {% endfor %}
+</ul>
+
+</html>
+```
+
+- This template can be accessed at `smart/notes` in the url.
