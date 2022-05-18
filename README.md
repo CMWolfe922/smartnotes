@@ -315,3 +315,22 @@ urlpatterns =[
 
 </html>
 ```
+
+> Now to ensure that we get the correct status code should a primary key be used to fetch a note that doesn't exist, I will need to go back to the views.py file and make some changes:
+
+- first import `from django.http import Http404`
+- Next, wrap the note_details view in a try and except block of code:
+
+```python
+from django.http import Http404
+
+# Create a view that displays note details
+def note_details(request, pk):
+    # add a try and except statement
+    try:
+        # get the note using the primary key
+        note = Notes.objects.get(pk=pk)
+        return render(request, 'notes/note_details.html', {'note': note})
+    except Notes.DoesNotExist:
+        raise Http404("Note Does Not Exist")
+```
