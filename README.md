@@ -223,3 +223,46 @@ Out[14]: <QuerySet [<Notes: Notes object (2)>]>
 In [15]: Notes.objects.filter(text__icontains="first").exclude(title__icontains="Second")
 Out[15]: <QuerySet [<Notes: Notes object (1)>]>
 ```
+---
+
+### BRANCH dynamic-template:
+
+> this branch will be used to create a template that loads data dynamically using the models I have created. To do this I will have to create new views in the `notes/views.py` file and then create `templates` in the `notes/templates/notes` directory:
+
+- In the `views.py` file add this function:
+```python
+from django.shortcuts import render
+
+# import the Notes model from this app
+from .models import Notes
+
+def list_notes(request):
+    # create an object that retrieves all the notes in the database
+    all_notes = Notes.objects.all()
+    return render(request, 'notes/notes_list.html', {'notes': all_notes})
+```
+
+> Next create a new `urls.py` file in the notes app and add this code:
+
+```python
+from django.urls import path
+
+from . import views
+
+urlpatterns =[
+    path('notes', views.list_notes)
+]
+```
+
+> next I will have to add this urlpattern to the smartnotes main `urls.py` file
+
+```python
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path("", include('home.urls')),
+
+    # LINE THAT NEEDS TO BE ADDED:
+    # This path is for the list_notes view in the notes app
+    path('smart/', include('notes.urls')),
+]
+```

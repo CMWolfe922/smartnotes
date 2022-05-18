@@ -19,4 +19,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include('home.urls')),
+    # This path is for the list_notes view in the notes app
+    path('smart/', include('notes.urls')),
 ]
