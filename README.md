@@ -282,3 +282,9 @@ urlpatterns = [
 ```
 
 - This template can be accessed at `smart/notes` in the url.
+
+> Now I will create a way to visualize details of the notes. To do this I will have to create a new view inside the notes app. This view will have to receive a second parameter called `pk` for `primary_key`
+
+```python
+
+```
