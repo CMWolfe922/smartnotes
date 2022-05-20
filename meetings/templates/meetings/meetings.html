@@ -1,3 +1,10 @@
-<html>
+{% extends 'home/base.html' %}
 
-</html>
+<!-- Create Block Content -->
+{% blockcontent %}
+
+<!-- Get all meeting data from for loop -->
+{% for meeting in meetings %}
+<h3>{{ meeting.name }}</h3>
+
+{% endblockcontent %}
