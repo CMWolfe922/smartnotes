@@ -1,9 +1,15 @@
+{% load static %}
+
 <html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
 <h1>These are all the notes: </h1>
 
 <ul>
     {% for note in notes %}
-    <li>{{note.title}}</li>
+    <li class="note-li">{{note.title}}</li>
     {% endfor %}
 </ul>
 

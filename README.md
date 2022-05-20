@@ -482,5 +482,26 @@ now.
 Now all I need to do is change the notes/urls.py file to reflect the new class based views: 
 
 ```python
+from django.urls import path
+
+from . import views
+
+urlpatterns =[
+    path('notes', views.NotesListView.as_view()),
+    path('notes/<int:pk>', views.NoteDetailsView.as_view()),
+]
 
 ```
+---
+
+
+### BRANCH static001: 
+
+> This branch is about setting up the projects static files. This is where images, videos, stylesheets, etc. are located. I can also add the projects base html file here so that it makes creating html files much easier by extending them from the base.html file. IT just requires creating a static directory in the root directory and then setting it up in the settings.py file. 
+
+1. Create a static directory in the root directory.
+2. Go to the `settings.py` file and add `STATICFILES_DIRS` and then make it equal to a list, where I can then point it to wherever there is a static directory in the root directory.
+3. Now Create a new folder, just for the CSS files, and then one css file named `styles.css`
+4. So then, wherever I want to use this `styles.css` file, I need to go to the html file and tell django to load that file using `{% load static %}` at the top of the file. 
+    - Next I need to load the file like I would in any html file. You load it by creating a `<head>` tag and then `<link>` inside the headlike this:
+    - `<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />`
