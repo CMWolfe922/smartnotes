@@ -334,3 +334,44 @@ def note_details(request, pk):
     except Notes.DoesNotExist:
         raise Http404("Note Does Not Exist")
 ```
+
+---
+
+### BRANCH class-views001:
+
+> This branch will be about changing my views to class based views and learning about how much simpler it is to utilize the class based views.
+
+- Class based views can create powerful endpoints without very much effort: 
+
+- changing the `home` app's views:
+
+`home/views.py`
+```python
+# First import the template view
+from django.views.generic import TemplateView
+
+# Then create a class called HomeView that inherits the TemplateView
+class HomeView(TemplateView):
+    # template_name will just be the path to the html file that you want this view to show
+    template_name = 'home/welcome.html'
+    # extra context is the data you want to make available to this page/view
+    extra_context = {'today': datetime.today()}
+
+# Now I can delete the home function we had before:
+# REMOVE THIS FUNCTION
+# def home(request):
+#     # This is saying whenever it gets a home request return hello world
+#     return render(request, "home/welcome.html", {'today': datetime.today()})
+
+```
+
+> But, when changing the views to a class-based view, it also changes the way the urls are defined. 
+
+`home/urls.py`
+```python
+urlpatterns = [
+    path("home", views.HomeView.as_view()),
+    path('authorized', views.authorized),
+]
+
+```
