@@ -1,20 +1,8 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
+<!-- Add Block Content-->
+{% block content %} {% comment %} Create an H! tag {% endcomment %}
+<h1>Welcome to Smart Notes!</h1>
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Smart Notes</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        {% comment %} Create an H! tag  {% endcomment %}
-        <h1>Welcome to Smart Notes!</h1>
-
-        {% comment %} Add the variable from the render function {% endcomment %}
-        <p>Today's date is {{ today }}.</p>
-        <script src="" async defer></script>
-    </body>
-</html>
+{% comment %} Add the variable from the render function {% endcomment %}
+<p>Today's date is {{ today }}.</p>
+{% endblock %}
