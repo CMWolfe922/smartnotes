@@ -2,19 +2,16 @@ from django.shortcuts import render
 from django.http import Http404
 # import the Notes model from this app
 from .models import Notes
+from django.views.generic import ListView, DetailView
 
-def list_notes(request):
-    # create an object that retrieves all the notes in the database
-    all_notes = Notes.objects.all()
-    return render(request, 'notes/notes_list.html', {'notes': all_notes})
+# Create a ListView 
+class NotesListView(ListView):
+    model = Notes
+    context_object_name = "notes"
+    # I can also add a template name here if I want to specify the name:
+    template_name = "notes/notes_list.html"
 
-
-# Create a view that displays note details
-def note_details(request, pk):
-    # add a try and except statement
-    try:
-        # get the note using the primary key
-        note = Notes.objects.get(pk=pk)
-        return render(request, 'notes/note_details.html', {'note': note})
-    except Notes.DoesNotExist:
-        raise Http404("Note Does Not Exist")
+class NoteDetailsView(DetailView):
+    model = Notes
+    context_object_name = "note"
+    template_name = "notes/note_details.html"

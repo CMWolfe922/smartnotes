@@ -422,3 +422,65 @@ urlpatterns = [
 ```
 
 So class based views can be very powerful and make life much easier. The only effort is learning about each View and mixin and knowing when the best time to use each is. Especially once the views become more and more complex, class based views will be your best friend. 
+
+---
+
+### BRANCH class-views002:
+
+> This branch will cover some more features in the class-based views area. 
+
+To start off, I am going to use the ListView in the `notes/views.py` file to list all of the notes. To get the `ListView` all you would do is import it like this:
+    - `from django.views.generic import ListView` 
+Then I can start a class based view named `NotesListView(ListView)` to list all of the notes.
+
+After that, I can easily create a detail view by importing the `DetailView` and passing it to the `NoteDetailsView(DetailView)`
+
+```python
+# import the two generic views I need:
+from django.views.generic import ListView, DetailView
+
+# Next Create the ListView
+class NotesListView(ListView):
+    # Now list where we are adding objects from using the model attribute
+    model = Notes
+    # Since the template expects a list names notes I have to add that the context_object_name
+    # is different from the default (which would be objects) but we are calling it notes
+    context_object_name = "notes"
+    # I can also add a template name here if I want to specify the name:
+    template_name = "notes/notes_list.html"
+
+"""
+Now that the NotesListView class is created, I can delete the old function because it isn't
+needed anymore. 
+"""
+# def list_notes(request):
+#     # create an object that retrieves all the notes in the database
+#     all_notes = Notes.objects.all()
+#     return render(request, 'notes/notes_list.html', {'notes': all_notes})
+
+# Now Create the DetailView
+class NoteDetailsView(DetailView):
+    model = Notes
+    context_object_name = "note"
+
+"""
+I don't need to handle the exception like in the function because DetailView does all of that for me. 
+I just have to change the url to reflect the new class based view. So I can get rid of the old function
+now. 
+"""
+# Create a view that displays note details
+# def note_details(request, pk):
+#     # add a try and except statement
+#     try:
+#         # get the note using the primary key
+#         note = Notes.objects.get(pk=pk)
+#         return render(request, 'notes/note_details.html', {'note': note})
+#     except Notes.DoesNotExist:
+#         raise Http404("Note Does Not Exist")
+```
+
+Now all I need to do is change the notes/urls.py file to reflect the new class based views: 
+
+```python
+
+```
