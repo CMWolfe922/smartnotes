@@ -5,4 +5,5 @@
 
 {% comment %} Add the variable from the render function {% endcomment %}
 <p>Today's date is {{ today }}.</p>
-{% endblock %}
+
+<a href="{% url 'notes.list' %}" class="btn btn-primary">Checkout these smart notes!</a> {% endblock %}
