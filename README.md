@@ -505,3 +505,14 @@ urlpatterns =[
 4. So then, wherever I want to use this `styles.css` file, I need to go to the html file and tell django to load that file using `{% load static %}` at the top of the file. 
     - Next I need to load the file like I would in any html file. You load it by creating a `<head>` tag and then `<link>` inside the headlike this:
     - `<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />`
+
+> that was pretty simple to do, but there is a better way to load css files (or whatever files you want) to all your html files without having to do this to each one. I can do this by creating a base.html file that every other html file extends from. this will make creating templates much easier!
+
+---
+
+### BRANCH base-template001:
+
+> Setting up a base template that each and every html file in the project can extend from so that all the links and other stuff don't need to be added to every template. This will make creating those new templates cleaner and faster:
+
+1. Create a `templates` directory in the `static` directory.
+2. Then create a file called `base.html`
