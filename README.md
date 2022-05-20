@@ -373,5 +373,52 @@ urlpatterns = [
     path("home", views.HomeView.as_view()),
     path('authorized', views.authorized),
 ]
+```
+
+- Next I will have to create the Authorization view.
+
+```python
+# Creating the AuthorizedView Class View
+class AuthorizedView(TemplateView):
+    template_name = 'home/authorized.html'
+```
+
+> This will get us to the authorized url, but it won't handle authentication the same way the function before did. So, how do I handle authentication with a class based view? 
+
+- I will need a mixin class, these are used for classes to inherit with their views as well: 
+
+```python
+# import the mixin we will need
+from django.contrib.auth.mixin import LoginRequiredMixin
+
+# Then just like before create the AuthorizedView class but make sure, the mixin class 
+# is inherited BEFORE the TemplateView class.. 
+class AuthorizedView(LoginRequiredMixin, TemplateView):
+    template_name = 'home/authorized.html'
+    # So just like the decorator, I just have to pass a redirect url to where someone will 
+    # have to go to login in order to access this view.
+    login_url = '/admin'
+
+
+# THEN I CAN DELETE THE FUNCTION FROM BEFORE:
+
+# Create authorized views here
+# this is all I have to do to block access to a page if user isn't logged in.
+# The login_url redirects the user to a page to login
+# @login_required(login_url="/admin")
+# def authorized(request):
+#     return render(request, "home/authorized.html", {})
 
 ```
+
+> Now just like before, I will have to change the `home/urls.py` file: 
+
+`home/urls.py`
+```python
+urlpatterns = [
+    path("home", views.HomeView.as_view()),
+    path('authorized', views.AuthorizedView.as_view()),
+]
+```
+
+So class based views can be very powerful and make life much easier. The only effort is learning about each View and mixin and knowing when the best time to use each is. Especially once the views become more and more complex, class based views will be your best friend. 
