@@ -516,3 +516,63 @@ urlpatterns =[
 
 1. Create a `templates` directory in the `static` directory.
 2. Then create a file called `base.html`
+    - This file will be used as the base from which every other template will extend from. So this should include the head, meta tags, links, and scripts all inside this one file. I will show two examples of the base, one with the static file for css being loaded to it, and another using bootstrap to create and style the templates. 
+
+`static/templates/base.html` With `style.css` being used 
+```html
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta author="CMWolfe">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add Links Here -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <!-- Block area where Django templates can be injected -->
+    {% endblock %}
+</body>
+
+</html>
+```
+
+> Example of other templates extending off of this:
+
+`notes/templates/notes/notes_list.html`
+```html
+{% extends 'base.html' %}
+
+<!-- Create block content -->
+{% block content %}
+<h1>These are all the notes: </h1>
+
+<ul>
+    {% for note in notes %}
+    <li class="note-li">{{note.title}}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
+```
+`notes/templates/notes/note_details.html`
+```html
+{% extends "base.html" %}
+
+<!-- Create Block Content Below -->
+{% block content %}
+<h1>Details for <b>{{note.title}}</b>: </h1>
+
+<p>{{note.text}}</p>
+
+</html>
+{% endblock %}
+```
+

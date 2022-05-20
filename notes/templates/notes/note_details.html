@@ -1,6 +1,10 @@
-<html>
+{% extends "base.html" %}
+
+<!-- Create Block Content Below -->
+{% block content %}
 <h1>Details for <b>{{note.title}}</b>: </h1>
 
 <p>{{note.text}}</p>
 
 </html>
+{% endblock %}
